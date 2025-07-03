@@ -1,0 +1,4 @@
+theme:green
+!important:لا يوجد تامين على مسؤولية اللاعب
+AppName:KickZone
+Chalenge:'later'
