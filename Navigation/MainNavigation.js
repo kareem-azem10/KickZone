@@ -1,8 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { splashLoad } from '../splash/splashLoad';
+
+// Initialize native navigation components
+import 'react-native-gesture-handler';
 import HomeScreen from '../screens/HomeScreen';
-import splashLoad from '../splash/splashLoad';
+
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
@@ -11,10 +15,10 @@ const MainNavigation = () => {
       <Stack.Navigator 
         screenOptions={{ 
           headerShown: false,
-          animation: 'slide_from_right'
+          animationEnabled: true
         }}
       >
-        <Stack.Screen name="SplashScreen" component={splashLoad} />
+        <Stack.Screen name="SplashLoad" component={splashLoad} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

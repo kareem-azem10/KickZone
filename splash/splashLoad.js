@@ -3,12 +3,15 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { strings } from '../strings'
 
-const backgroundImage = require('./photos2app/background.jpg');
-const animation = require('./splash/animation.json');
 
-const splashLoad = () => {
+const backgroundImage = require('../photos2app/background.jpg');
+const animation = require('./animation.json');
+
+export const splashLoad = () => {
+  const { Tiltels } = strings.arabic
+
   const navigation = useNavigation();
   const animationRef = useRef(null);
 
@@ -18,33 +21,36 @@ const splashLoad = () => {
     }
   }, []);
 
-  return (
-    <PaperProvider>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <ImageBackground
-          source={backgroundImage}
-          style={styles.background}
-          resizeMode="cover"
-        >
-          <View style={styles.overlay}>
-            <Text style={styles.welcomeText}>Welcome to KickZone</Text>
-            <LottieView
-              ref={animationRef}
-              source={animation}
-              autoPlay
-              loop={false}
-              onAnimationFinish={() => navigation.navigate('HomeScreen')}
-              style={styles.animation}
-            />
-          </View>
-        </ImageBackground>
-      </View>
-    </PaperProvider>
-  );
-}
+  const handleAnimationFinish = () => {
+    // Add a small delay before navigation to ensure smooth transition
+    setTimeout(() => {
+      navigation.navigate('HomeScreen');
+    }, 100);
+  };
 
-export default splashLoad;
+  return (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <ImageBackground
+        source={backgroundImage}
+        style={styles.background}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
+          <Text style={styles.welcomeText}>{Tiltels.title}</Text>
+          <LottieView
+            ref={animationRef}
+            source={animation}
+            autoPlay
+            loop={false}
+            onAnimationFinish={handleAnimationFinish}
+            style={styles.animation}
+          />
+        </View>
+      </ImageBackground>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -62,10 +68,10 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 24,
     color: 'white',
-    marginBottom: 20,
+    marginBottom: 100,
   },
   animation: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
   },
 });
